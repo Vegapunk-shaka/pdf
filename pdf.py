@@ -5,7 +5,7 @@
 file_name = "ILovePDF/pdf.py"
 
 from configs.config import bot
-from telebot import async_telebot
+from bot import async_telebot
 
 
 # GLOBAL VARIABLES
