@@ -5,8 +5,10 @@
 file_name = "ILovePDF/pdf.py"
 
 from configs.config import bot
-from aiogram import Bot, Dispatcher, executor, types
-import asyncio
+from aiogram import Bot, Dispatcher, types
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
+from aiogram.dispatcher import Dispatcher
+from aiogram.utils import executor
 
 # GLOBAL VARIABLES
 PDF = {}  # save images for generating pdf
@@ -15,10 +17,8 @@ works = {"u": [], "g": []}  # broken works
 # Initialize bot and dispatcher
 pyTgLovePDF = Bot(token=bot.API_TOKEN, parse_mode="Markdown")
 dp = Dispatcher(pyTgLovePDF)
+dp.middleware.setup(LoggingMiddleware())
 
-@dp.message_handler(commands=['start', 'help'])
-async def send_welcome(message: types.Message):
-    await message.reply("Hi!\nI'm your bot!\nPowered by aiogram.")
 
 async def on_startup(_):
     print('Bot is online')
