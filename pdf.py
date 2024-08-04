@@ -6,7 +6,6 @@ file_name = "ILovePDF/pdf.py"
 
 from configs.config import bot
 from aiogram import Bot, Dispatcher, types
-from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
@@ -17,7 +16,6 @@ works = {"u": [], "g": []}  # broken works
 # Initialize bot and dispatcher
 pyTgLovePDF = Bot(token=bot.API_TOKEN, parse_mode="Markdown")
 dp = Dispatcher(pyTgLovePDF)
-dp.middleware.setup(LoggingMiddleware())
 
 
 async def on_startup(_):
