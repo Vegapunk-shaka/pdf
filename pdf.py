@@ -6,7 +6,7 @@ file_name = "ILovePDF/pdf.py"
 
 from configs.config import bot
 from aiogram import Bot, Dispatcher, types
-from aiogram.dispatcher import Dispatcher
+from aiogram.types import ParseMode
 from aiogram.utils import executor
 
 # GLOBAL VARIABLES
@@ -14,16 +14,16 @@ PDF = {}  # save images for generating pdf
 works = {"u": [], "g": []}  # broken works
 
 # Initialize bot and dispatcher
-pyTgLovePDF = Bot(token=bot.API_TOKEN, parse_mode="Markdown")
-dp = Dispatcher(pyTgLovePDF)
+pyTgLovePDF = Bot(token=bot.API_TOKEN, parse_mode=ParseMode.MARKDOWN)
+dp = Dispatcher()
 
+@dp.message_handler(commands=['start', 'help'])
+async def send_welcome(message: types.Message):
+    await message.reply("Hi!\nI'm your bot!\nPowered by aiogram.")
 
-async def on_startup(_):
-    print('Bot is online')
+async def on_startup(dp):
+    await pyTgLovePDF.send_message(chat_id=YOUR_CHAT_ID, text="Bot is online")
 
 # Start polling
 if __name__ == '__main__':
     executor.start_polling(dp, on_startup=on_startup)
-
-# If you have any questions or suggestions, please feel free to reach out.
-# Together, we can make this project even better, Happy coding!  XD
