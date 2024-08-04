@@ -5,16 +5,27 @@
 file_name = "ILovePDF/pdf.py"
 
 from configs.config import bot
-import telebot  # Ensure the correct import statement
+from aiogram import Bot, Dispatcher, executor, types
+import asyncio
 
 # GLOBAL VARIABLES
 PDF = {}  # save images for generating pdf
 works = {"u": [], "g": []}  # broken works
 
-pyTgLovePDF = telebot.TeleBot(bot.API_TOKEN, parse_mode="Markdown")
-# TELEBOT (pyTelegramBotAPI) Asyncio [for uploading group doc, imgs]
+# Initialize bot and dispatcher
+pyTgLovePDF = Bot(token=bot.API_TOKEN, parse_mode="Markdown")
+dp = Dispatcher(pyTgLovePDF)
 
-pyTgLovePDF.polling()
+@dp.message_handler(commands=['start', 'help'])
+async def send_welcome(message: types.Message):
+    await message.reply("Hi!\nI'm your bot!\nPowered by aiogram.")
+
+async def on_startup(_):
+    print('Bot is online')
+
+# Start polling
+if __name__ == '__main__':
+    executor.start_polling(dp, on_startup=on_startup)
 
 # If you have any questions or suggestions, please feel free to reach out.
 # Together, we can make this project even better, Happy coding!  XD
